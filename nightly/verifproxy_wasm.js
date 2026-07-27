@@ -5288,6 +5288,10 @@ var getHeapMax = () => // Stay one Wasm page short of 4GB: while e.g. Chrome is 
 // casing all heap size related code to treat 0 specially.
 2147483648;
 
+var _emscripten_get_heap_max = () => getHeapMax();
+
+var _emscripten_num_logical_cores = () => ENVIRONMENT_IS_NODE ? require("os").cpus().length : navigator["hardwareConcurrency"];
+
 var abortOnCannotGrowMemory = requestedSize => {
   abort("OOM");
 };
@@ -6016,7 +6020,9 @@ function assignWasmImports() {
     /** @export */ emscripten_check_blocking_allowed: _emscripten_check_blocking_allowed,
     /** @export */ emscripten_date_now: _emscripten_date_now,
     /** @export */ emscripten_exit_with_live_runtime: _emscripten_exit_with_live_runtime,
+    /** @export */ emscripten_get_heap_max: _emscripten_get_heap_max,
     /** @export */ emscripten_get_now: _emscripten_get_now,
+    /** @export */ emscripten_num_logical_cores: _emscripten_num_logical_cores,
     /** @export */ emscripten_resize_heap: _emscripten_resize_heap,
     /** @export */ environ_get: _environ_get,
     /** @export */ environ_sizes_get: _environ_sizes_get,
@@ -6599,7 +6605,11 @@ var _mclBnG1_normalizeVec = Module["_mclBnG1_normalizeVec"] = (a0, a1, a2) => (_
 
 var _mclBnG2_normalizeVec = Module["_mclBnG2_normalizeVec"] = (a0, a1, a2) => (_mclBnG2_normalizeVec = Module["_mclBnG2_normalizeVec"] = wasmExports["mclBnG2_normalizeVec"])(a0, a1, a2);
 
+var _eth_chainId = Module["_eth_chainId"] = (a0, a1, a2) => (_eth_chainId = Module["_eth_chainId"] = wasmExports["eth_chainId"])(a0, a1, a2);
+
 var _eth_blockNumber = Module["_eth_blockNumber"] = (a0, a1, a2) => (_eth_blockNumber = Module["_eth_blockNumber"] = wasmExports["eth_blockNumber"])(a0, a1, a2);
+
+var _eth_syncing = Module["_eth_syncing"] = (a0, a1, a2) => (_eth_syncing = Module["_eth_syncing"] = wasmExports["eth_syncing"])(a0, a1, a2);
 
 var _eth_getBalance = Module["_eth_getBalance"] = (a0, a1, a2, a3, a4) => (_eth_getBalance = Module["_eth_getBalance"] = wasmExports["eth_getBalance"])(a0, a1, a2, a3, a4);
 
@@ -6657,6 +6667,66 @@ var _eth_feeHistory = Module["_eth_feeHistory"] = (a0, a1, a2, a3, a4, a5, a6) =
 
 var _eth_sendRawTransaction = Module["_eth_sendRawTransaction"] = (a0, a1, a2, a3) => (_eth_sendRawTransaction = Module["_eth_sendRawTransaction"] = wasmExports["eth_sendRawTransaction"])(a0, a1, a2, a3);
 
+var _op_chainId = Module["_op_chainId"] = (a0, a1, a2) => (_op_chainId = Module["_op_chainId"] = wasmExports["op_chainId"])(a0, a1, a2);
+
+var _op_blockNumber = Module["_op_blockNumber"] = (a0, a1, a2) => (_op_blockNumber = Module["_op_blockNumber"] = wasmExports["op_blockNumber"])(a0, a1, a2);
+
+var _op_getBalance = Module["_op_getBalance"] = (a0, a1, a2, a3, a4) => (_op_getBalance = Module["_op_getBalance"] = wasmExports["op_getBalance"])(a0, a1, a2, a3, a4);
+
+var _op_getStorageAt = Module["_op_getStorageAt"] = (a0, a1, a2, a3, a4, a5) => (_op_getStorageAt = Module["_op_getStorageAt"] = wasmExports["op_getStorageAt"])(a0, a1, a2, a3, a4, a5);
+
+var _op_getTransactionCount = Module["_op_getTransactionCount"] = (a0, a1, a2, a3, a4) => (_op_getTransactionCount = Module["_op_getTransactionCount"] = wasmExports["op_getTransactionCount"])(a0, a1, a2, a3, a4);
+
+var _op_getCode = Module["_op_getCode"] = (a0, a1, a2, a3, a4) => (_op_getCode = Module["_op_getCode"] = wasmExports["op_getCode"])(a0, a1, a2, a3, a4);
+
+var _op_getBlockByHash = Module["_op_getBlockByHash"] = (a0, a1, a2, a3, a4) => (_op_getBlockByHash = Module["_op_getBlockByHash"] = wasmExports["op_getBlockByHash"])(a0, a1, a2, a3, a4);
+
+var _op_getBlockByNumber = Module["_op_getBlockByNumber"] = (a0, a1, a2, a3, a4) => (_op_getBlockByNumber = Module["_op_getBlockByNumber"] = wasmExports["op_getBlockByNumber"])(a0, a1, a2, a3, a4);
+
+var _op_getUncleCountByBlockNumber = Module["_op_getUncleCountByBlockNumber"] = (a0, a1, a2, a3) => (_op_getUncleCountByBlockNumber = Module["_op_getUncleCountByBlockNumber"] = wasmExports["op_getUncleCountByBlockNumber"])(a0, a1, a2, a3);
+
+var _op_getUncleCountByBlockHash = Module["_op_getUncleCountByBlockHash"] = (a0, a1, a2, a3) => (_op_getUncleCountByBlockHash = Module["_op_getUncleCountByBlockHash"] = wasmExports["op_getUncleCountByBlockHash"])(a0, a1, a2, a3);
+
+var _op_getBlockTransactionCountByNumber = Module["_op_getBlockTransactionCountByNumber"] = (a0, a1, a2, a3) => (_op_getBlockTransactionCountByNumber = Module["_op_getBlockTransactionCountByNumber"] = wasmExports["op_getBlockTransactionCountByNumber"])(a0, a1, a2, a3);
+
+var _op_getBlockTransactionCountByHash = Module["_op_getBlockTransactionCountByHash"] = (a0, a1, a2, a3) => (_op_getBlockTransactionCountByHash = Module["_op_getBlockTransactionCountByHash"] = wasmExports["op_getBlockTransactionCountByHash"])(a0, a1, a2, a3);
+
+var _op_getTransactionByBlockNumberAndIndex = Module["_op_getTransactionByBlockNumberAndIndex"] = (a0, a1, a2, a3, a4, a5) => (_op_getTransactionByBlockNumberAndIndex = Module["_op_getTransactionByBlockNumberAndIndex"] = wasmExports["op_getTransactionByBlockNumberAndIndex"])(a0, a1, a2, a3, a4, a5);
+
+var _op_getTransactionByBlockHashAndIndex = Module["_op_getTransactionByBlockHashAndIndex"] = (a0, a1, a2, a3, a4, a5) => (_op_getTransactionByBlockHashAndIndex = Module["_op_getTransactionByBlockHashAndIndex"] = wasmExports["op_getTransactionByBlockHashAndIndex"])(a0, a1, a2, a3, a4, a5);
+
+var _op_call = Module["_op_call"] = (a0, a1, a2, a3, a4, a5) => (_op_call = Module["_op_call"] = wasmExports["op_call"])(a0, a1, a2, a3, a4, a5);
+
+var _op_createAccessList = Module["_op_createAccessList"] = (a0, a1, a2, a3, a4, a5) => (_op_createAccessList = Module["_op_createAccessList"] = wasmExports["op_createAccessList"])(a0, a1, a2, a3, a4, a5);
+
+var _op_estimateGas = Module["_op_estimateGas"] = (a0, a1, a2, a3, a4, a5) => (_op_estimateGas = Module["_op_estimateGas"] = wasmExports["op_estimateGas"])(a0, a1, a2, a3, a4, a5);
+
+var _op_getTransactionByHash = Module["_op_getTransactionByHash"] = (a0, a1, a2, a3) => (_op_getTransactionByHash = Module["_op_getTransactionByHash"] = wasmExports["op_getTransactionByHash"])(a0, a1, a2, a3);
+
+var _op_getBlockReceipts = Module["_op_getBlockReceipts"] = (a0, a1, a2, a3) => (_op_getBlockReceipts = Module["_op_getBlockReceipts"] = wasmExports["op_getBlockReceipts"])(a0, a1, a2, a3);
+
+var _op_getTransactionReceipt = Module["_op_getTransactionReceipt"] = (a0, a1, a2, a3) => (_op_getTransactionReceipt = Module["_op_getTransactionReceipt"] = wasmExports["op_getTransactionReceipt"])(a0, a1, a2, a3);
+
+var _op_getLogs = Module["_op_getLogs"] = (a0, a1, a2, a3) => (_op_getLogs = Module["_op_getLogs"] = wasmExports["op_getLogs"])(a0, a1, a2, a3);
+
+var _op_newFilter = Module["_op_newFilter"] = (a0, a1, a2, a3) => (_op_newFilter = Module["_op_newFilter"] = wasmExports["op_newFilter"])(a0, a1, a2, a3);
+
+var _op_uninstallFilter = Module["_op_uninstallFilter"] = (a0, a1, a2, a3) => (_op_uninstallFilter = Module["_op_uninstallFilter"] = wasmExports["op_uninstallFilter"])(a0, a1, a2, a3);
+
+var _op_getFilterLogs = Module["_op_getFilterLogs"] = (a0, a1, a2, a3) => (_op_getFilterLogs = Module["_op_getFilterLogs"] = wasmExports["op_getFilterLogs"])(a0, a1, a2, a3);
+
+var _op_getFilterChanges = Module["_op_getFilterChanges"] = (a0, a1, a2, a3) => (_op_getFilterChanges = Module["_op_getFilterChanges"] = wasmExports["op_getFilterChanges"])(a0, a1, a2, a3);
+
+var _op_blobBaseFee = Module["_op_blobBaseFee"] = (a0, a1, a2) => (_op_blobBaseFee = Module["_op_blobBaseFee"] = wasmExports["op_blobBaseFee"])(a0, a1, a2);
+
+var _op_gasPrice = Module["_op_gasPrice"] = (a0, a1, a2) => (_op_gasPrice = Module["_op_gasPrice"] = wasmExports["op_gasPrice"])(a0, a1, a2);
+
+var _op_maxPriorityFeePerGas = Module["_op_maxPriorityFeePerGas"] = (a0, a1, a2) => (_op_maxPriorityFeePerGas = Module["_op_maxPriorityFeePerGas"] = wasmExports["op_maxPriorityFeePerGas"])(a0, a1, a2);
+
+var _op_feeHistory = Module["_op_feeHistory"] = (a0, a1, a2, a3, a4, a5, a6) => (_op_feeHistory = Module["_op_feeHistory"] = wasmExports["op_feeHistory"])(a0, a1, a2, a3, a4, a5, a6);
+
+var _op_sendRawTransaction = Module["_op_sendRawTransaction"] = (a0, a1, a2, a3) => (_op_sendRawTransaction = Module["_op_sendRawTransaction"] = wasmExports["op_sendRawTransaction"])(a0, a1, a2, a3);
+
 var __emscripten_tls_init = () => (__emscripten_tls_init = wasmExports["_emscripten_tls_init"])();
 
 var _pthread_self = () => (_pthread_self = wasmExports["pthread_self"])();
@@ -6713,9 +6783,9 @@ var dynCall_ijiii = Module["dynCall_ijiii"] = (a0, a1, a2, a3, a4, a5) => (dynCa
 
 var dynCall_ijji = Module["dynCall_ijji"] = (a0, a1, a2, a3, a4, a5) => (dynCall_ijji = Module["dynCall_ijji"] = wasmExports["dynCall_ijji"])(a0, a1, a2, a3, a4, a5);
 
-var dynCall_jiji = Module["dynCall_jiji"] = (a0, a1, a2, a3, a4) => (dynCall_jiji = Module["dynCall_jiji"] = wasmExports["dynCall_jiji"])(a0, a1, a2, a3, a4);
-
 var dynCall_viij = Module["dynCall_viij"] = (a0, a1, a2, a3, a4) => (dynCall_viij = Module["dynCall_viij"] = wasmExports["dynCall_viij"])(a0, a1, a2, a3, a4);
+
+var dynCall_jiji = Module["dynCall_jiji"] = (a0, a1, a2, a3, a4) => (dynCall_jiji = Module["dynCall_jiji"] = wasmExports["dynCall_jiji"])(a0, a1, a2, a3, a4);
 
 // include: postamble.js
 // === Auto-generated postamble setup entry stuff ===
